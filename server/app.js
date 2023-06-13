@@ -1,11 +1,15 @@
 const express = require('express');
 const socketio = require('socket.io');
+const cors = require('cors');
 const path = require('path');
   
 const app = express();
 const PORT = process.env.PORT || 8080;
 
 app.use('/static', express.static(path.join(__dirname, 'static')));
+app.use(cors({
+    origin: '*'
+}));
 
 app.get('/', (req, res)=>{
     res.sendFile(path.join(__dirname, 'static', 'index.html'));
@@ -25,6 +29,6 @@ io.on('connection', (socket) => {
     console.log('New client connected with id #' + socket.id);
 
     socket.on("disconnect", () => {
-        console.log(socket.id + 'has left the server...')
+        console.log(socket.id + ' has left the server...')
     });
 });
