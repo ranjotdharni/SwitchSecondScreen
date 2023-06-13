@@ -11,7 +11,7 @@ app.use(cors({
     origin: '*'
 }));
 
-app.get('/', (req, res)=>{
+app.get('/home', (req, res)=>{
     res.sendFile(path.join(__dirname, 'static', 'index.html'));
 });
 
