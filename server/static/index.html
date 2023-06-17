@@ -6,6 +6,26 @@
     <title>SwitchSecondScreen</title>
 </head>
 <body>
-    <h1>This is a test, if you're seeing this only on /home route, then it worked; otherwise bummer.</h1>
+    <img id = "image" src = "picture.jpg?123444321234" width="100%" height="calc(0px + 100%)"/>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var img = document.getElementById("image");
+        const socket = io();
+        socket.on('connect', () => {
+            console.log('Client connected with id #', socket.id);
+        });
+
+        socket.on('refresh', (data) => {
+            /*if (img)
+            {
+                document.body.removeChild(img);
+            }
+            img = new Image();
+            img.id = "image";*/
+            img.src = 'data:image/png;base64,' + data;
+            //document.body.appendChild(img);
+        });        
+    </script>
+
 </body>
 </html>

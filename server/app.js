@@ -1,6 +1,7 @@
 const express = require('express');
 const socketio = require('socket.io');
 const cors = require('cors');
+const fs = require('fs');
 const path = require('path');
   
 const app = express();
@@ -27,6 +28,11 @@ const io = socketio(server);
 
 io.on('connection', (socket) => {
     console.log('New client connected with id #' + socket.id);
+
+    socket.on('uploadImage', (data) => {
+        io.emit('refresh', data);
+        socket.emit('imageSaved', 'Image was saved received by server!');
+    });
 
     socket.on("disconnect", () => {
         console.log(socket.id + ' has left the server...')
