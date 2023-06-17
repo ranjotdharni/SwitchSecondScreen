@@ -18,11 +18,10 @@ const uploadImage = (filePath) => {
       }
     });
 };
-
 app.listen(PORT, (error) => {
     if(!error)
         console.log("Server is Successfully Running, and App is listening on port " + PORT);
-    else 
+    else
         console.log("Error occurred, server can't start ", error);
 });
 
@@ -31,12 +30,8 @@ socket.on('connect', () => {
     uploadImage(imgPath);
     setInterval(function() {
       uploadImage(imgPath);
-    }, 650);
+    }, 500);
 });
-
-socket.on('imageSaved', (msg) => {
-    console.log(msg);
-})
 
 socket.on('connect_error', () => {
     console.log(socket.id + ' has ERROR!');

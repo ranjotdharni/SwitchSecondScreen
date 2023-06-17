@@ -19,7 +19,6 @@ public class App {
                // Save the screenshot as a JPEG file
                File outputFile = new File("C:\\Users\\xxtri\\Downloads\\CS Expos\\SwitchSecondScreen\\desktop\\img\\test.jpg");
                ImageIO.write(screenshot, "jpg", outputFile);
-               
             } catch (AWTException | IOException ex) {
                System.err.println("Error capturing desktop screenshot: " + ex.getMessage());
             }

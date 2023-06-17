@@ -31,7 +31,6 @@ io.on('connection', (socket) => {
 
     socket.on('uploadImage', (data) => {
         io.emit('refresh', data);
-        socket.emit('imageSaved', 'Image was saved received by server!');
     });
 
     socket.on("disconnect", () => {

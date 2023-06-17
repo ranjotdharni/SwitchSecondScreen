@@ -4,26 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SwitchSecondScreen</title>
+
+    <style>
+        .img 
+        {
+          width: 1280px;
+          height: 720px;
+          position: fixed;
+        }
+
+        .hidden
+        {
+            display: none;
+        }
+    </style>
 </head>
 <body>
-    <img id = "image" src = "picture.jpg?123444321234" width="100%" height="calc(0px + 100%)"/>
+    <div id="imageContainer">
+        <img id = "image1" src = "..." class = "img"/>
+    </div>
+
     <script src="/socket.io/socket.io.js"></script>
     <script>
-        var img = document.getElementById("image");
+        var imageElement = document.getElementById('image1');
+        var imageContainer = document.getElementById('imageContainer');
+        var timeout;
+        var source;
+        timeout = setInterval(function() {
+            var newImg = new Image();
+            newImg.classList.add('hidden');
+            newImg.src = source;
+
+            newImg.onload = function() {
+                imageContainer.replaceChild(newImg, imageElement);
+                newImg.classList.remove('hidden');
+                imageElement = newImg;
+            };
+        }, 10);
+
         const socket = io();
         socket.on('connect', () => {
             console.log('Client connected with id #', socket.id);
         });
 
         socket.on('refresh', (data) => {
-            /*if (img)
-            {
-                document.body.removeChild(img);
-            }
-            img = new Image();
-            img.id = "image";*/
-            img.src = 'data:image/png;base64,' + data;
-            //document.body.appendChild(img);
+            source = 'data:image/png;base64,' + data;
         });        
     </script>
 
