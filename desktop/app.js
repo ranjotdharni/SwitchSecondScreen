@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
   
 const app = express();
-const socket = io('http://localhost:8080'); //https://second-screen-q62t.onrender.com {secure: true}
+const socket = io('https://second-screen-q62t.onrender.com', {secure: true}); //https://second-screen-q62t.onrender.com {secure: true}
 const PORT = process.env.PORT || 9090;
 const imgPath = path.join(__dirname, 'img', 'test.jpg');
 
@@ -26,12 +26,11 @@ app.listen(PORT, (error) => {
 });
 
 socket.on('connect', () => {
-    socket.emit('join-room', '1738', 99);
-    /*console.log(socket.id + ' has connected');
+    console.log(socket.id + ' has connected');
     uploadImage(imgPath);
     setInterval(function() {
       uploadImage(imgPath);
-    }, 500);*/
+    }, 500);
 });
 
 socket.on('connect_error', () => {
